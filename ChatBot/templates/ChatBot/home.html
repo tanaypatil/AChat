@@ -1,0 +1,118 @@
+{% extends 'ChatBot/base2.html' %}
+{% load static %}
+{% block styles %}
+    <link href="{% static 'ChatBot/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        .side_box{
+            background-image: url("{% static 'ChatBot/images/home_bckg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+        }
+        .right_wing{
+            background-image: url("{% static 'ChatBot/images/home_bckg_2.jpg' %}");
+            background-size: cover;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <div class="col-12 col-lg-4 side_box left_div style-2">
+                <div class="pt-5 pb-5 pl-2 pr-2">
+                    <div class="white text-center mb-4">
+                        <h2 class="font-italic">Talk to your very own</h2><br>
+                        <h1 class="font-weight-bold">AI-CHAT BOT</h1>
+                    </div>
+                    <div class="white text-justify pt-3 pb-3 mt-3 mb-5 p-2 light_box">
+                        <h3>About A-CHAT</h3>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </div>
+                    <div class="white text-justify pt-3 pb-3 mt-3 mb-5 p-2 light_box font-weight-bold">
+                        {% ifnotequal average 0 %}
+                            <h3>Average Rating: {{ average }} <i class="fa fa-star" style="color: gold"></i></h3>
+                        {% else %}
+                            <h3>No Ratings yet.</h3>
+                        {% endifnotequal %}
+                    </div>
+                    {% for rating in ratings %}
+                        <div class="white text-justify pt-3 pb-3 mt-3 mb-5 p-2 light_box">
+                            <div class="font-weight-bold text-capitalize">
+                                {{ rating.user.username }}
+                            </div>
+                            <div>Rating: {{ rating.rating }} <i class="fa fa-star" style="color: gold"></i></div>
+                            <div class="text-justify small">
+                                {{ rating.review|default_if_none:'No review.' }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 pt-5 mt-3 right_wing">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="form-group form-group-lg">
+                            <input id="message" class="message_field" type="text" placeholder="Type your message...">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <button onclick="sendMessage()" class="btn btn-outline-primary" type="button"><i class="fa fa-2x fa-send"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row right_div style-2">
+                    <div class="col-lg-10">
+                        <ul style="list-style: none" id="message_list">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('#message').on('keypress', function (e) {
+            if (e.which === 13) {
+                sendMessage();
+            }
+        });
+        function sendMessage() {
+            let message = $('#message').val();
+            if(message.length === 0){
+                alert("Enter a message.");
+                return;
+            }
+            let message_list = $('#message_list');
+            let time = new Date();
+            let time_string = time.toLocaleTimeString();
+            let d = $('.right_div');
+            message_list.append('<li>\n' +
+                '                                <div class="you_message_box p-2 col-6 offset-6 mb-3">\n' +
+                '                                    <span class="font-weight-bold">You </span><span class="text-muted small"> '+time_string+'</span><br>\n' +
+                '                                    <span>' + message + '</span>\n' +
+                '                                </div>\n' +
+                '                            </li>');
+            d.scrollTop(d.prop("scrollHeight"));
+            setTimeout(function () {
+                let time = new Date();
+                let time_string = time.toLocaleTimeString();
+                $('#message_list').append('<li>\n' +
+                    '                                <div class="bot_message_box p-2 col-6 mb-3 pb-1">\n' +
+                    '                                    <span class="font-weight-bold">Bot </span><span class="text-muted small"> ' + time_string + '</span><br>\n' +
+                    '                                    <span>I am Iron Man.</span>\n' +
+                    '                                </div>\n' +
+                    '                            </li>');
+                d.scrollTop(d.prop("scrollHeight"));
+            }, 1200);
+            $('#message').val("");
+        }
+    </script>
+{% endblock %}

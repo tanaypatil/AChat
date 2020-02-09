@@ -1,0 +1,65 @@
+{% extends 'ChatBot/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block styles %}
+    <link href="https://fonts.googleapis.com/css?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed&display=swap" rel="stylesheet">
+    <link href="{% static 'ChatBot/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row p-5 pt-2">
+            <div class="col-12 col-lg-6 mt-5">
+                <div class="pt-2 pb-1 heading1 heading1_font white">
+                    AI-CHAT
+                </div>
+                <div class="pt-1 pb-2 heading2 white">
+                    Build The Future.
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 offset-lg-2">
+                <div class="login_box login_head_font">
+                    <h2 class="text-center font-weight-bold">Get Started..!</h2>
+                    {% include 'ChatBot/_message.html' %}
+                    <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+                        <li class="nav-item w-50">
+                            <a class="nav-link {% if signup %}{% else %}active{% endif %}" id="login-tab" data-toggle="tab" href="#login" role="tab"
+                               aria-controls="login" aria-selected="true">Sign In</a>
+                        </li>
+                        <li class="nav-item w-50">
+                            <a class="nav-link {% if signup %}active{% endif %}" id="signup-tab" data-toggle="tab" href="#signup" role="tab"
+                               aria-controls="signup" aria-selected="false">Sign Up</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="myTabContent">
+                        <div class="tab-pane fade {% if signup %}{% else %}show active{% endif %}" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ login_form|crispy }}
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <input type="submit" name="submit" class="btn btn-primary form-control" value="Sign In">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade {% if signup %}show active{% endif %}" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ signup_form|crispy }}
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <input type="submit" name="submit" class="btn btn-primary form-control" value="Sign Up">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {% include 'ChatBot/_alerts_handling.html' %}
+{% endblock %}

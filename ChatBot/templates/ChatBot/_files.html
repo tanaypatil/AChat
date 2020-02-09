@@ -1,0 +1,15 @@
+{% for file in files %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ file.name }}</td>
+        <td><a target="_blank" href="{{ MEDIA_URL }}{{ file.document.url }}">View</a></td>
+        <td><i title="Delete File" class="fa fa-remove remove_icon" onclick="removeFile('{{ file.name }}')"></i></td>
+    </tr>
+{% empty %}
+    <tr>
+        <th></th>
+        <td>No Files found.</td>
+        <td></td>
+        <td></td>
+    </tr>
+{% endfor %}

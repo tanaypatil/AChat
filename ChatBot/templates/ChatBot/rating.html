@@ -1,0 +1,78 @@
+{% extends 'ChatBot/base2.html' %}
+{% load static %}
+{% block styles %}
+    <link href="{% static 'ChatBot/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        body{
+            background-image: url("{% static 'ChatBot/images/home_bckg_2.jpg' %}");
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-12 col-lg-6 pt-5 text-center">
+                <div class="p-3 text-center">
+                    <h1 class="font-weight-bold">Rate The Bot</h1>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% include 'ChatBot/_message.html' %}
+                    <div id="rating">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row mb-3 mt-3">
+                            <div class="col-12 col-lg-10 offset-lg-1">
+                                <textarea name="review" class="form-control" id="review" rows="5"
+                                          placeholder="Type your review here..." maxlength="200"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col-lg-6 offset-lg-3 col-12 text-center">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-lg-6 pt-5 text-center">
+                <div class="p-3 text-center">
+                    <h3>Previous Rating</h3>
+                    {% for rating in ratings %}
+                        <div class="p-3 heading2 mb-3">
+                            Rating: {{ rating.rating }} <i class="fa fa-star"
+                                                                                style="color: gold"></i>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-12 col-lg-10 offset-lg-1">
+                                    <textarea class="form-control" disabled rows="5">{{ rating.review }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="p-3">
+                            <h5 class="text-muted">No Rating Submitted.</h5>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'ChatBot/js/jquery.emojiRatings.min.js' %}"></script>
+    <script>
+        var rating = 0;
+        $('#rating').emojiRating({
+            emoji: 'U+2B50',
+            count: 5,
+            fontSize: 66,
+            inputName: 'rating',
+            onUpdate: function (rating_number) {
+                rating = rating_number;
+            }
+        });
+    </script>
+    {% include 'ChatBot/_alerts_handling.html' with messages=messages %}
+{% endblock %}

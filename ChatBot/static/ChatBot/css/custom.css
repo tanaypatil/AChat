@@ -1,0 +1,158 @@
+.black{
+    color: black !important;
+}
+
+body{
+    overflow: hidden;
+}
+
+.white{
+    color: white !important;
+}
+
+.heading1{
+    font-size: 66pt;
+}
+
+.heading2{
+    font-size: 48pt;
+}
+
+.login_box{
+    background-color: white;
+    border-radius: 16px;
+}
+
+.light_box{
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 2px 1px #ffc107;
+}
+
+.file_form_box{
+    background-color: whitesmoke;
+    border-radius: 16px;
+}
+
+.remove_icon:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.navbar{
+    background-color: #002752 !important;
+    border-bottom: 1px solid white;
+    z-index: 100 !important;
+}
+
+.nav-link.navb{
+    color: white;
+}
+
+.navb.nav-link:hover{
+    color: #ffc107;
+}
+
+.message_field{
+    border: 0;
+    outline: 0;
+    background: transparent;
+    box-shadow: 0 0.5px 0 0 #002752 !important;
+    width: 100% !important;
+    height: 46px !important;
+}
+
+.you_message_box{
+    background-color: #ffc107;
+    border-radius: 10px;
+}
+
+.bot_message_box{
+    background-color: #ced4da;
+    border-radius: 10px;
+}
+
+.style-2::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.style-2::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: white;
+    border-radius: 10px;
+}
+
+.style-2::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,.3);
+	background-color: #ffc107;
+}
+
+.left_div {
+    overflow-y: scroll;
+    max-height: 660px !important;
+}
+
+.right_div {
+    overflow-y: scroll;
+    max-height: 500px !important;
+}
+
+/* rating */
+.rating-stars ul {
+  list-style-type:none;
+  padding:0;
+
+  -moz-user-select:none;
+  -webkit-user-select:none;
+}
+.rating-stars ul > li.star {
+  display:inline-block;
+
+}
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+  font-size:2.5em; /* Change the size of the stars */
+  color:#ccc; /* Color on idle state */
+}
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > i.fa {
+  color:#FFCC36;
+}
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > i.fa {
+  color:#FF912C;
+}
+
+@media screen and (min-width: 1440px){
+    .left_div {
+        overflow-y: scroll;
+        max-height: 960px !important;
+    }
+
+    .right_div {
+        overflow-y: scroll;
+        max-height: 750px !important;
+    }
+}
+
+@media screen and (max-width:700px){
+    .left_div {
+        overflow-y: visible;
+        height: auto;
+        max-height: max-content !important;
+    }
+
+    .right_div {
+        overflow-y: scroll;
+        height: auto;
+        max-height: max-content !important;
+    }
+}

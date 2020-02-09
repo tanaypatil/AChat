@@ -1,0 +1,71 @@
+{% extends 'ChatBot/base2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block styles %}
+    <link href="{% static 'ChatBot/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-12 mt-5">
+                <div class="file_form_box p-4">
+                    {% include 'ChatBot/_message.html' %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-12 text-center p-2">
+                                <h3>Upload Files</h3>
+                            </div>
+                        </div>
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-outline-primary form-control mt-2 mb-2">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7 offset-lg-1 col-12 mt-5">
+                <div class="text-dark text-center file_form_box">
+                    <h2>
+                        Your Files
+                    </h2>
+                </div>
+                <div class="p-1">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">File Name</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody id="files">
+                            {% include 'ChatBot/_files.html' with files=files %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function removeFile(name) {
+            $.ajax({
+                url: "{% url 'delete_file' %}",
+                method: "post",
+                data: {"name": name},
+                success: function (data) {
+                    if(data['status']){
+                        $('#files').html(data['template']);
+                    }else {
+                        alert(data['message'])
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+    </script>
+    {% include 'ChatBot/_alerts_handling.html' with messages=messages %}
+{% endblock %}
