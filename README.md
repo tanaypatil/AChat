@@ -26,3 +26,10 @@ Steps to run the project in development:
 <br>`pip install -r requirements.txt`
 6. Navigate to the project folder. Run the command - <br>`python manage.py runserver`<br> to start the project on localhost.
 7. Go to _127.0.0.1:8000_ on your browser.
+
+<br>
+
+**Production Environment:**<br>
+Hosted on - **AWS EC2**<br>
+Static & Media File Storage - **AWS S3**<br>
+Web Server - **Apache2**
