@@ -31,5 +31,4 @@ Steps to run the project in development:
 
 **Production Environment:**<br>
 Hosted on - **AWS EC2**<br>
-Static & Media File Storage - **AWS S3**<br>
 Web Server - **Apache2**
